@@ -56,7 +56,7 @@ Through completing this financial analysis project for ACC102 Track4, I have gai
 ### Future Improvements
 1. Expand the dataset to include more tech firms or quarterly data for granular trend analysis.
 2. Integrate qualitative factors (e.g., regulatory changes, product launches) to contextualize financial metric shifts.
-3.Refine the Streamlit dashboard to include automated narrative analysis of key trends, making insights more accessible to non-technical stakeholders.
+3. Refine the Streamlit dashboard to include automated narrative analysis of key trends, making insights more accessible to non-technical stakeholders.
 
 ## Project Summary
 This project successfully delivers a complete financial analysis framework for five leading tech companies from 2015 to 2023, aligned with the requirements of the ACC102 Track4 assignment. By extracting and cleaning data from WRDS Compustat, calculating key financial ratios, and building industry benchmarks, the project provides a clear comparative view of the financial performance of AAPL, MSFT, GOOGL, AMZN, and META. 
