@@ -3,6 +3,14 @@ This project builds an interactive financial analytics tool to compare key metri
 
 The core objective is to evaluate and compare the financial health, profitability, and operational efficiency of these firms through quantitative analysis of key accounting metrics, while establishing industry benchmarks to contextualize individual company performance.
 
+## Project Objective
+The primary goal of this project is to apply foundational financial accounting and data analytics skills (learned in ACC102) to conduct a structured, data-driven analysis of major tech industry players. Specific objectives include:
+1. To extract and process reliable financial data from a professional database (WRDS Compustat) to ensure analytical accuracy.
+2. To calculate and interpret core financial ratios (profitability, leverage, growth) to assess the financial performance of AAPL, MSFT, GOOGL, AMZN, and META.
+3. To establish industry average benchmarks for the 2015-2023 period to enable meaningful cross-company comparison.
+4. To visualize financial trends and relationships through intuitive charts, making complex financial data accessible and interpretable.
+5. To build an interactive Streamlit dashboard that allows for customizable exploration of the analyzed data, demonstrating practical application of data visualization skills.
+
 ## Project Background
 The analysis is built on financial data extracted from the WRDS Compustat database, a trusted source for institutional financial research. The 9-year time frame (2015-2023) allows for the observation of long-term trends, including market fluctuations, post-pandemic recovery, and strategic shifts within the tech industry. This project addresses the need for data-driven insights into how major tech firms perform across critical financial dimensions relative to each other and the broader industry average.
 
@@ -48,6 +56,11 @@ Through completing this financial analysis project for ACC102 Track4, I have gai
 ### Future Improvements
 1. Expand the dataset to include more tech firms or quarterly data for granular trend analysis.
 2. Integrate qualitative factors (e.g., regulatory changes, product launches) to contextualize financial metric shifts.
-3. Refine the Streamlit dashboard to include automated narrative analysis of key trends, making insights more accessible to non-technical stakeholders.
+3.Refine the Streamlit dashboard to include automated narrative analysis of key trends, making insights more accessible to non-technical stakeholders.
 
-This project reinforced the value of combining technical skills with financial acumen—accurate data processing is foundational, but meaningful interpretation of results is what turns data into actionable insights.
+## Project Summary
+This project successfully delivers a complete financial analysis framework for five leading tech companies from 2015 to 2023, aligned with the requirements of the ACC102 Track4 assignment. By extracting and cleaning data from WRDS Compustat, calculating key financial ratios, and building industry benchmarks, the project provides a clear comparative view of the financial performance of AAPL, MSFT, GOOGL, AMZN, and META. 
+
+The visualization outputs (trend charts, bar charts, scatter plots, radar charts, heatmaps) effectively highlight key differences: for example, Apple’s consistent high profit margin vs. Amazon’s lower margin but higher revenue growth, or Microsoft’s stable ROE compared to Meta’s more volatile performance post-2020. The interactive Streamlit dashboard further enhances the usability of the analysis, allowing for customized exploration of metrics by company, year, or ratio type.
+
+Overall, the project achieves its core objectives: it applies academic financial knowledge to real-world data, builds technical proficiency in Python-based data analytics, and produces actionable insights into the financial health of the tech industry’s key players.
