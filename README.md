@@ -1,5 +1,6 @@
 # Tech Industry Financial Analysis
 Interactive Financial Analytics Dashboard for Tech Firms | ACC102 Track4 Assignment
+
 student name: Xiaoxu Zhou student ID number:2471738
 
 ## Project Introduction
