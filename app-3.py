@@ -130,8 +130,18 @@ elif page == "Portfolio Lab":
     tickers = st.text_input("Enter tickers", "AAPL,MSFT,GOOGL")
     ticker_list = [t.strip() for t in tickers.split(",")]
 
-    data = yf.download(ticker_list, start="2020-01-01")["Adj Close"]
+    raw_data = yf.download(ticker_list, start="2020-01-01")
 
+ if "Adj Close" in raw_data.columns:
+     data = raw_data["Adj Close"]
+ elif "Close" in raw_data.columns:
+     data = raw_data["Close"]
+ else:
+     st.error("No valid price data found.")
+     st.stop()
+ if len(ticker_list) == 0:
+     st.warning("Please enter at least one ticker")
+     st.stop()
     if not data.empty:
 
         returns = data.pct_change().dropna()
