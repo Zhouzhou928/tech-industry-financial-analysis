@@ -85,14 +85,14 @@ if page == "Financial Dashboard":
             top_company = metrics_summary["Average"].idxmax()
             st.write(f"🏆 {top_company}")
         else:
-            st.info
+            st.info("👈 Please select companies first")
     
         st.markdown("### 📉 Bottom Performer")
         if not metrics_summary["Average"].empty:
             bottom_company = metrics_summary["Average"].idxmin()
             st.write(f"📉 {bottom_company}")
         else:
-            st.info
+            st.info("👈 Please select companies first")
     with col2:
         st.dataframe(metrics_summary, use_container_width=True)
 
@@ -176,8 +176,8 @@ st.dataframe(ranking_df)
 if not ranking_df.empty:
     top_company = ranking_df.index[0]
     st.success(f"Top Company: {top_company}")
-elif:
-    st.info
+else:
+    st.info("👈 Please select companies first")
     
     # ======================
     # ⚠️ Risk Analysis
@@ -200,7 +200,7 @@ elif:
 # ======================
 # PAGE 2: Portfolio Lab
 # ======================
-else page == "Portfolio Lab":
+elif page == "Portfolio Lab":
 
     st.title("📊 Portfolio Lab")
 
