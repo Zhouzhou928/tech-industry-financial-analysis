@@ -90,7 +90,7 @@ if page == "Financial Dashboard":
         st.dataframe(metrics_summary, use_container_width=True)
 
     # ----------------------
-    # 🔥 Investment Insight（新增）
+    # 🔥 Investment Insight
     # ----------------------
     st.subheader("📊 Investment Insight")
 
@@ -121,11 +121,14 @@ if page == "Financial Dashboard":
     st.plotly_chart(fig3, use_container_width=True)
 
 # ======================
-# PAGE 2: Portfolio Lab（高级模块）
+# PAGE 2: Portfolio Lab
 # ======================
-elif page == "Portfolio Lab":
+   elif page == "Portfolio Lab":
 
     st.title("📊 Portfolio Lab")
+
+    import yfinance as yf
+    import numpy as np
 
     tickers = st.text_input("Enter tickers", "AAPL,MSFT,GOOGL")
     ticker_list = [t.strip() for t in tickers.split(",")]
@@ -136,83 +139,76 @@ elif page == "Portfolio Lab":
         st.error("No data downloaded. Please check tickers.")
         st.stop()
 
-    if isinstance(raw_data.columns, pd.MultiIndex):
-        if "Adj Close" in raw_data.columns.levels[0]:
-            data = raw_data["Adj Close"]
+    try:
+        if isinstance(raw_data.columns, pd.MultiIndex):
+            if "Adj Close" in raw_data.columns.levels[0]:
+                data = raw_data["Adj Close"]
+            else:
+                data = raw_data["Close"]
         else:
-            data = raw_data["Close"]
-    else:
-      
-        if "Adj Close" in raw_data.columns:
-            data = raw_data["Adj Close"].to_frame()
-        else:
-            data = raw_data["Close"].to_frame()
- elif "Close" in raw_data.columns:
-     data = raw_data["Close"]
- else:
-     st.error("No valid price data found.")
-     st.stop()
- if len(ticker_list) == 0:
-     st.warning("Please enter at least one ticker")
-     st.stop()
-    if not data.empty:
+            if "Adj Close" in raw_data.columns:
+                data = raw_data["Adj Close"].to_frame()
+            else:
+                data = raw_data["Close"].to_frame()
+    except Exception as e:
+        st.error("Data processing error")
+        st.stop()
 
-        returns = data.pct_change().dropna()
+    returns = data.pct_change().dropna()
 
-        # ----------------------
-        # Portfolio Metrics
-        # ----------------------
-        mean_returns = returns.mean() * 252
-        cov_matrix = returns.cov() * 252
+    # ======================
+    # Portfolio Metrics
+    # ======================
+    mean_returns = returns.mean() * 252
+    cov_matrix = returns.cov() * 252
 
-        weights = np.array([1/len(ticker_list)] * len(ticker_list))
+    weights = np.array([1/len(ticker_list)] * len(ticker_list))
 
-        portfolio_return = np.sum(mean_returns * weights)
-        portfolio_volatility = np.sqrt(np.dot(weights.T, np.dot(cov_matrix, weights)))
-        sharpe_ratio = portfolio_return / portfolio_volatility
+    portfolio_return = np.sum(mean_returns * weights)
+    portfolio_volatility = np.sqrt(np.dot(weights.T, np.dot(cov_matrix, weights)))
+    sharpe_ratio = portfolio_return / portfolio_volatility
 
-        st.subheader("📈 Portfolio Metrics")
-        st.write(f"Return: {portfolio_return:.2%}")
-        st.write(f"Volatility: {portfolio_volatility:.2%}")
-        st.write(f"Sharpe Ratio: {sharpe_ratio:.2f}")
+    st.subheader("📈 Portfolio Metrics")
+    st.write(f"Return: {portfolio_return:.2%}")
+    st.write(f"Volatility: {portfolio_volatility:.2%}")
+    st.write(f"Sharpe Ratio: {sharpe_ratio:.2f}")
 
-        st.line_chart(data)
+    st.line_chart(data)
 
-        # ----------------------
-        # Monte Carlo Simulation
-        # ----------------------
-        st.subheader("🎲 Monte Carlo Simulation")
+    # ======================
+    # Monte Carlo
+    # ======================
+    st.subheader("🎲 Monte Carlo Simulation")
 
-        simulations = 100
-        days = 252
+    simulations = 100
+    days = 252
 
-        last_price = data.iloc[-1]
+    last_price = data.iloc[-1]
 
-        sim_data = []
+    sim_data = []
 
-        for _ in range(simulations):
-            prices = [last_price.mean()]
-            for _ in range(days):
-                prices.append(prices[-1] * (1 + np.random.normal(
+    for _ in range(simulations):
+        prices = [last_price.mean()]
+        for _ in range(days):
+            prices.append(
+                prices[-1] * (1 + np.random.normal(
                     returns.mean().mean(),
                     returns.std().mean()
-                )))
-            sim_data.append(prices)
+                ))
+            )
+        sim_data.append(prices)
 
-        sim_df = pd.DataFrame(sim_data).T
-        st.line_chart(sim_df)
+    sim_df = pd.DataFrame(sim_data).T
+    st.line_chart(sim_df)
 
-        # ----------------------
-        # Insight
-        # ----------------------
-        st.subheader("🤖 Portfolio Insight")
+    # ======================
+    # Insight
+    # ======================
+    st.subheader("🤖 Portfolio Insight")
 
-        if sharpe_ratio > 1:
-            st.success("Strong portfolio")
-        elif sharpe_ratio > 0.5:
-            st.info("Moderate performance")
-        else:
-            st.warning("Weak portfolio")
-
+    if sharpe_ratio > 1:
+        st.success("Strong portfolio")
+    elif sharpe_ratio > 0.5:
+        st.info("Moderate performance")
     else:
-        st.error("No data found.")
+        st.warning("Weak portfolio")
