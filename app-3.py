@@ -167,21 +167,21 @@ if page == "Financial Dashboard":
     st.markdown("## 🏆 Company Ranking")
     
     scores = metrics_summary["Average"].rank(ascending=False)
-ranking_df = pd.DataFrame({
-    "Rank": scores
-}).sort_values("Rank")
-
-st.dataframe(ranking_df)
-
-if not ranking_df.empty:
-    top_company = ranking_df.index[0]
-    st.success(f"Top Company: {top_company}")
-else:
-    st.info("👈 Please select companies first")
+    ranking_df = pd.DataFrame({
+        "Rank": scores
+    }).sort_values("Rank")
     
-    # ======================
-    # ⚠️ Risk Analysis
-    # ======================
+    st.dataframe(ranking_df)
+    
+    if not ranking_df.empty:
+        top_company = ranking_df.index[0]
+        st.success(f"Top Company: {top_company}")
+    else:
+        st.info("👈 Please select companies first")
+    
+        # ======================
+        # ⚠️ Risk Analysis
+        # ======================
     st.markdown("## ⚠️ Risk Analysis")
     
     risk_metric = st.selectbox(
