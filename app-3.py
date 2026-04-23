@@ -317,7 +317,7 @@ elif page == "Portfolio Lab":
         st.warning("📉 Low Return Alert: Annualized return is below 5%, underperforming most risk-free assets. Evaluate the portfolio's upside potential.")
     
     # ----------------------
-    # 📊 Monte Carlo Simulation Insights (Fixed Version)
+    # 📊 Monte Carlo Simulation Insights 
     # ----------------------
     st.subheader("📊 Monte Carlo Simulation Insights")
     
@@ -341,4 +341,4 @@ elif page == "Portfolio Lab":
     elif pct_gain > 50:
         st.info("📊 The outlook is neutral-to-positive. Upside and downside risks are relatively balanced, and performance is expected to align closely with broader market trends.")
     else:
-        st.warning("📉 The simulation suggests a cautious outlook. The probability of negative returns is significant, and downside risks warrant close attention.")
+        st.warning("📉 The simulation suggests a cautious outlook. The probability of negative returns is significant, and downside risks warrant clo
