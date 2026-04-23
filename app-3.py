@@ -70,7 +70,25 @@ if page == "Financial Dashboard":
     # ----------------------
     st.title("📊 Tech Firms Financial Dashboard")
     st.subheader("Financial Overview")
+st.subheader("📊 Investment Insight")
 
+if metrics_summary.empty:
+    st.warning("No data available")
+
+else:
+    avg = metrics_summary["Average"].mean()
+
+    if pd.isna(avg):
+        st.warning("Invalid data")
+
+    elif avg > 0.2:
+        st.success("Strong performance")
+
+    elif avg > 0.1:
+        st.info("Moderate performance")
+
+    else:
+        st.warning("Weak performance")
     # ----------------------
     # Metrics
     # ----------------------
@@ -268,26 +286,3 @@ elif page == "Portfolio Lab":
 
     sim_df = pd.DataFrame(sim_data).T
     st.line_chart(sim_df)
-
-    # ======================
-    # Insight
-    # ======================
-    st.subheader("📊 Investment Insight")
-
-    if metrics_summary.empty:
-        st.warning("No data available for selected filters")
-    
-    else:
-        avg = metrics_summary["Average"].mean()
-    
-        if pd.isna(avg):
-            st.warning("Data is missing or invalid")
-    
-        elif avg > 0.2:
-            st.success("Strong industry performance")
-    
-        elif avg > 0.1:
-            st.info("Moderate performance")
-    
-        else:
-            st.warning("Weak performance, potential risk")
