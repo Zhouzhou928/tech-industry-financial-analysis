@@ -81,16 +81,18 @@ if page == "Financial Dashboard":
 
     with col1:
         st.markdown("### 📈 Top Performer")
-  
         if not metrics_summary["Average"].empty:
-           top_company = metrics_summary["Average"].idxmax()
-           st.write(f"🏆 {top_company}")
+            top_company = metrics_summary["Average"].idxmax()
+            st.write(f"🏆 {top_company}")
         else:
-           st.info
-
+            st.info
+    
         st.markdown("### 📉 Bottom Performer")
-        st.write(metrics_summary["Average"].idxmin())
-
+        if not metrics_summary["Average"].empty:
+            bottom_company = metrics_summary["Average"].idxmin()
+            st.write(f"📉 {bottom_company}")
+        else:
+            st.info
     with col2:
         st.dataframe(metrics_summary, use_container_width=True)
 
