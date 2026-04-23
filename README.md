@@ -1,5 +1,6 @@
 # Tech Industry Financial Analysis
 Interactive Financial Analytics Dashboard for Tech Firms | ACC102 Track4 Assignment
+student name: Xiaoxu Zhou student ID number:2471738
 
 ## Project Introduction
 This project develops an interactive financial analytics dashboard to compare core financial indicators, including Profit Margin, ROE, ROA, Revenue, and Debt-to-Asset Ratio, across major technology companies such as Apple, Microsoft, Google, Amazon, and Meta, as well as industry benchmarks. With multi-page navigation, dynamic visualizations, and flexible data filtering, this tool is built specifically for the ACC102 Track4 assignment.
