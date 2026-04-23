@@ -225,24 +225,18 @@ elif page == "Portfolio Lab":
 
     returns = data.pct_change().dropna()
 
-# ======================
-# Portfolio Metrics 
-# ======================
-mean_returns = returns.mean() * 252
-
-try:
+    # ======================
+    # Portfolio Metrics
+    # ======================
+    mean_returns = returns.mean() * 252
     cov_matrix = returns.cov() * 252
-except:
-    cov_matrix = np.array([[returns.var() * 252]])
 
-    cov_matrix = np.array(cov_matrix)
-    n_assets = len(mean_returns)
-    weights = np.ones(n_assets) / n_assets
-    
-    portfolio_return = np.sum(mean_returns.values * weights)
+    weights = np.array([1/len(ticker_list)] * len(ticker_list))
+
+    portfolio_return = np.sum(mean_returns * weights)
     portfolio_volatility = np.sqrt(np.dot(weights.T, np.dot(cov_matrix, weights)))
-    sharpe_ratio = portfolio_return / portfolio_volatility if portfolio_volatility != 0 else 0
-    
+    sharpe_ratio = portfolio_return / portfolio_volatility
+
     st.subheader("📈 Portfolio Metrics")
     st.write(f"Return: {portfolio_return:.2%}")
     st.write(f"Volatility: {portfolio_volatility:.2%}")
@@ -277,74 +271,13 @@ except:
     st.line_chart(sim_df)
 
     # ======================
-    # 🤖 Portfolio Insight
+    # Insight
     # ======================
     st.subheader("🤖 Portfolio Insight")
-    col_insight1, col_insight2 = st.columns(2)
-    
-    # Key Metrics
-    sharpe = sharpe_ratio
-    vol = portfolio_volatility * 100
-    ret = portfolio_return * 100
-    
-    # Performance status
-    if sharpe > 1:
-        status = "✅ Strong Portfolio"
-        color = "success"
-        comment = "This portfolio delivers excellent risk-adjusted returns. The return-to-risk ratio is high, indicating a well-balanced and robust configuration."
-    elif sharpe > 0.5:
-        status = "⚠️ Moderate Performance"
-        color = "info"
-        comment = "Returns are generally in line with risk levels, but there is room for improvement. Consider adding higher-Sharpe assets or reducing overall volatility."
+
+    if sharpe_ratio > 1:
+        st.success("Strong portfolio")
+    elif sharpe_ratio > 0.5:
+        st.info("Moderate performance")
     else:
-        status = "❌ Weak Performance"
-        color = "warning"
-        comment = "Risk-adjusted returns are underwhelming. The portfolio either carries too much volatility for its return or lacks sufficient upside potential. A review of holdings or diversification strategy is recommended."
-    
-    with col_insight1:
-        st.metric("Portfolio Status", status)
-        st.markdown(f"**Annualized Return:** {ret:.2f}%")
-        st.markdown(f"**Annualized Volatility:** {vol:.2f}%")
-        st.markdown(f"**Sharpe Ratio:** {sharpe:.2f}")
-    
-    with col_insight2:
-        st.markdown("### Interpretation & Recommendations")
-        if color == "success":
-            st.success(comment)
-        elif color == "info":
-            st.info(comment)
-        else:
-            st.warning(comment)
-    
-    # Risk alerts
-    if vol > 25:
-        st.error("⚠️ High Volatility Alert: Portfolio volatility exceeds 25%. Consider adding low-correlation assets to improve diversification.")
-    if ret < 5:
-        st.warning("📉 Low Return Alert: Annualized return is below 5%, underperforming most risk-free assets. Evaluate the portfolio's upside potential.")
-    
-    # ----------------------
-    # 📊 Monte Carlo Simulation Insights 
-    # ----------------------
-    st.subheader("📊 Monte Carlo Simulation Insights")
-    
-    # Calculate statistics from simulation results
-    sim_final_values = sim_df.iloc[-1].dropna()  # Drop NaN values to avoid errors
-    pct_change_sim = (sim_final_values / last_price) - 1
-    
-    # Calculate probabilities
-    pct_gain = (pct_change_sim > 0).mean() * 100
-    pct_loss_10pct = (pct_change_sim < -0.1).mean() * 100
-    pct_gain_10pct = (pct_change_sim > 0.1).mean() * 100
-    
-    col1, col2, col3 = st.columns(3)
-    col1.metric("1-Year Probability of Gain", f"{pct_gain:.1f}%")
-    col2.metric("Probability of >10% Loss", f"{pct_loss_10pct:.1f}%")
-    col3.metric("Probability of >10% Gain", f"{pct_gain_10pct:.1f}%")
-    
-    st.markdown("### Scenario Analysis")
-    if pct_gain > 70 and pct_loss_10pct < 10:
-        st.success("📈 The simulation shows an optimistic outlook: high probability of positive returns with low risk of severe losses. This profile is suitable for risk-averse investors.")
-    elif pct_gain > 50:
-        st.info("📊 The outlook is neutral-to-positive. Upside and downside risks are relatively balanced, and performance is expected to align closely with broader market trends.")
-    else:
-        st.warning("📉 The simulation suggests a cautious outlook. The probability of negative returns is significant, and downside risks warrant close attention.")
+        st.warning("Weak portfolio")
