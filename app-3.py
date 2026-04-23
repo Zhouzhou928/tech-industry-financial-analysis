@@ -271,13 +271,17 @@ elif page == "Portfolio Lab":
     st.line_chart(sim_df)
 
     # ======================
-    # Insight
+    # Insight (Simple Enhanced)
     # ======================
     st.subheader("🤖 Portfolio Insight")
-
+    
+    st.write(f"Annual Return: {portfolio_return:.2%}")
+    st.write(f"Volatility: {portfolio_volatility:.2%}")
+    st.write(f"Sharpe Ratio: {sharpe_ratio:.2f}")
+    
     if sharpe_ratio > 1:
-        st.success("Strong portfolio")
+        st.success("Strong portfolio — Good risk‑adjusted return")
     elif sharpe_ratio > 0.5:
-        st.info("Moderate performance")
+        st.info("Moderate performance — Balanced return and risk")
     else:
-        st.warning("Weak portfolio")
+        st.warning("Weak portfolio — Consider lower risk assets")
