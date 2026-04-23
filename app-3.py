@@ -119,7 +119,75 @@ if page == "Financial Dashboard":
     st.markdown("### Annual Comparison")
     fig3 = px.bar(filtered_df, x="year", y=selected_metric, color="tic")
     st.plotly_chart(fig3, use_container_width=True)
-
+    # ======================
+    # 🧠 Scenario Analysis
+    # ======================
+    st.markdown("## 🧠 Scenario Analysis")
+    
+    scenario = st.selectbox(
+        "Select Scenario",
+        ["Growth Focus", "Profitability Focus", "Risk Focus"]
+    )
+    
+    if scenario == "Growth Focus":
+        metric = "revt"
+        st.info("Analyzing revenue growth trends")
+    
+    elif scenario == "Profitability Focus":
+        metric = "profit_margin"
+        st.info("Analyzing profitability trends")
+    
+    else:
+        metric = "debt_asset"
+        st.info("Analyzing financial risk")
+    
+    fig_scenario = px.line(
+        filtered_df,
+        x="year",
+        y=metric,
+        color="tic",
+        markers=True,
+        title=f"{metric} under {scenario}"
+    )
+    
+    st.plotly_chart(fig_scenario, use_container_width=True)
+    
+    
+    # ======================
+    # 🏆 Ranking System
+    # ======================
+    st.markdown("## 🏆 Company Ranking")
+    
+    scores = metrics_summary["Average"].rank(ascending=False)
+    
+    ranking_df = pd.DataFrame({
+        "Rank": scores
+    }).sort_values("Rank")
+    
+    st.dataframe(ranking_df)
+    
+    top_company = ranking_df.index[0]
+    st.success(f"Top Company: {top_company}")
+    
+    
+    # ======================
+    # ⚠️ Risk Analysis
+    # ======================
+    st.markdown("## ⚠️ Risk Analysis")
+    
+    risk_metric = st.selectbox(
+        "Select Risk Metric",
+        ["debt_asset", "roa"]
+    )
+    
+    fig_risk = px.box(
+        filtered_df,
+        x="tic",
+        y=risk_metric,
+        title=f"{risk_metric} Risk Distribution"
+    )
+    
+    st.plotly_chart(fig_risk, use_container_width=True)
 # ======================
 # PAGE 2: Portfolio Lab
 # ======================
