@@ -94,23 +94,25 @@ else:
     # ----------------------
     metrics_summary = filtered_df.groupby("tic")[selected_metric].agg(["mean", "max", "min"]).round(3)
     metrics_summary.columns = ["Average", "Peak", "Trough"]
-if metrics_summary.empty:
-    st.warning("No data available")
+    st.subheader("📊 Investment Insight")
 
-else:
-    avg = metrics_summary["Average"].mean()
-
-    if pd.isna(avg):
-        st.warning("Invalid data")
-
-    elif avg > 0.2:
-        st.success("Strong performance")
-
-    elif avg > 0.1:
-        st.info("Moderate performance")
+    if metrics_summary.empty:
+        st.warning("No data available")
 
     else:
-        st.warning("Weak performance")
+        avg = metrics_summary["Average"].mean()
+
+        if pd.isna(avg):
+            st.warning("Invalid data")
+
+        elif avg > 0.2:
+            st.success("Strong performance")
+
+        elif avg > 0.1:
+            st.info("Moderate performance")
+
+        else:
+            st.warning("Weak performance")
     col1, col2 = st.columns([1, 2])
 
     with col1:
