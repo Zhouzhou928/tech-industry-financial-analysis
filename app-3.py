@@ -272,7 +272,7 @@ elif page == "Portfolio Lab":
     # ======================
     # Insight
     # ======================
- st.subheader("📊 Investment Insight")
+    st.subheader("📊 Investment Insight")
 
     if metrics_summary.empty:
         st.warning("No data available for selected filters")
