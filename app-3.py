@@ -341,4 +341,4 @@ elif page == "Portfolio Lab":
     elif pct_gain > 50:
         st.info("📊 The outlook is neutral-to-positive. Upside and downside risks are relatively balanced, and performance is expected to align closely with broader market trends.")
     else:
-        st.warning("📉 The simulation suggests a cautious outlook. The probability of negative returns is significant, and downside risks warrant clo
+        st.warning("📉 The simulation suggests a cautious outlook. The probability of negative returns is significant, and downside risks warrant close attention.")
