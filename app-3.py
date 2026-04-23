@@ -225,22 +225,24 @@ elif page == "Portfolio Lab":
 
     returns = data.pct_change().dropna()
 
-    # ======================
-    # Portfolio Metrics
-    # ======================
-    mean_returns = returns.mean() * 252
+# ======================
+# Portfolio Metrics 
+# ======================
+mean_returns = returns.mean() * 252
 
 try:
     cov_matrix = returns.cov() * 252
 except:
     cov_matrix = np.array([[returns.var() * 252]])
 
-    weights = np.array([1/len(ticker_list)] * len(ticker_list))
-
-    portfolio_return = np.sum(mean_returns * weights)
+    cov_matrix = np.array(cov_matrix)
+    n_assets = len(mean_returns)
+    weights = np.ones(n_assets) / n_assets
+    
+    portfolio_return = np.sum(mean_returns.values * weights)
     portfolio_volatility = np.sqrt(np.dot(weights.T, np.dot(cov_matrix, weights)))
-    sharpe_ratio = portfolio_return / portfolio_volatility
-
+    sharpe_ratio = portfolio_return / portfolio_volatility if portfolio_volatility != 0 else 0
+    
     st.subheader("📈 Portfolio Metrics")
     st.write(f"Return: {portfolio_return:.2%}")
     st.write(f"Volatility: {portfolio_volatility:.2%}")
