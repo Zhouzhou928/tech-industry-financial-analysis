@@ -167,16 +167,17 @@ if page == "Financial Dashboard":
     st.markdown("## 🏆 Company Ranking")
     
     scores = metrics_summary["Average"].rank(ascending=False)
-    
-    ranking_df = pd.DataFrame({
-        "Rank": scores
-    }).sort_values("Rank")
-    
-    st.dataframe(ranking_df)
-    
+ranking_df = pd.DataFrame({
+    "Rank": scores
+}).sort_values("Rank")
+
+st.dataframe(ranking_df)
+
+if not ranking_df.empty:
     top_company = ranking_df.index[0]
     st.success(f"Top Company: {top_company}")
-    
+else:
+    st.info
     
     # ======================
     # ⚠️ Risk Analysis
