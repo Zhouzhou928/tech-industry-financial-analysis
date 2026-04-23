@@ -132,8 +132,21 @@ elif page == "Portfolio Lab":
 
     raw_data = yf.download(ticker_list, start="2020-01-01")
 
- if "Adj Close" in raw_data.columns:
-     data = raw_data["Adj Close"]
+    if raw_data is None or raw_data.empty:
+        st.error("No data downloaded. Please check tickers.")
+        st.stop()
+
+    if isinstance(raw_data.columns, pd.MultiIndex):
+        if "Adj Close" in raw_data.columns.levels[0]:
+            data = raw_data["Adj Close"]
+        else:
+            data = raw_data["Close"]
+    else:
+      
+        if "Adj Close" in raw_data.columns:
+            data = raw_data["Adj Close"].to_frame()
+        else:
+            data = raw_data["Close"].to_frame()
  elif "Close" in raw_data.columns:
      data = raw_data["Close"]
  else:
