@@ -123,7 +123,7 @@ if page == "Financial Dashboard":
 # ======================
 # PAGE 2: Portfolio Lab
 # ======================
-   elif page == "Portfolio Lab":
+elif page == "Portfolio Lab":
 
     st.title("📊 Portfolio Lab")
 
