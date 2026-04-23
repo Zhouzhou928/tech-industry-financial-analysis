@@ -229,7 +229,11 @@ elif page == "Portfolio Lab":
     # Portfolio Metrics
     # ======================
     mean_returns = returns.mean() * 252
+
+try:
     cov_matrix = returns.cov() * 252
+except:
+    cov_matrix = np.array([[returns.var() * 252]])
 
     weights = np.array([1/len(ticker_list)] * len(ticker_list))
 
