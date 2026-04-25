@@ -4,6 +4,20 @@ import plotly.express as px
 import numpy as np
 import yfinance as yf
 
+# =====================================================================
+# ⚠️ ⚠️ ⚠️ [LOCAL RUN ONLY CONFIG - MUST COMMENT OUT BEFORE DEPLOYING TO CLOUD!] ⚠️ ⚠️ ⚠️
+#
+# Prerequisites for local execution:
+# 1. VPN/proxy software must be running.
+# 2. The proxy's local port must be set to 7897 (matches the proxy address below).
+#
+# Cloud Deployment Note: This proxy setup is NOT needed and will cause errors on Streamlit Cloud.
+# =====================================================================
+
+proxy =  'http://127.0.0.1:7897'
+os.environ['HTTP_PROXY'] = proxy
+os.environ['HTTPS_PROXY'] = proxy
+
 # ======================
 # Global Config
 # ======================
