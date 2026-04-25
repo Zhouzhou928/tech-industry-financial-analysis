@@ -5,7 +5,12 @@ import numpy as np
 import yfinance as yf
 import os
 
-# =====================================================================
+# Detect if the app is running on Streamlit Cloud
+is_cloud = st.config.get_option("server.headless")
+
+if not is_cloud:
+#
+=====================================================================
 # ⚠️ ⚠️ ⚠️ [LOCAL RUN ONLY CONFIG - MUST COMMENT OUT BEFORE DEPLOYING TO CLOUD!] ⚠️ ⚠️ ⚠️
 #
 # Prerequisites for local execution:
@@ -15,10 +20,14 @@ import os
 # Cloud Deployment Note: This proxy setup is NOT needed and will cause errors on Streamlit Cloud.
 # =====================================================================
 
-proxy =  'http://127.0.0.1:7897'
-os.environ['HTTP_PROXY'] = proxy
-os.environ['HTTPS_PROXY'] = proxy
-
+    proxy = 'http://127.0.0.1:7897'
+    os.environ['HTTP_PROXY'] = proxy
+    os.environ['HTTPS_PROXY'] = proxy
+else:
+    # Clear proxy variables in cloud to avoid network issues
+    os.environ.pop('HTTP_PROXY', None)
+    os.environ.pop('HTTPS_PROXY', None)
+    
 # ======================
 # Global Config
 # ======================
