@@ -9,8 +9,7 @@ import os
 is_cloud = st.config.get_option("server.headless")
 
 if not is_cloud:
-#
-=====================================================================
+#=====================================================================
 # ⚠️ ⚠️ ⚠️ [LOCAL RUN ONLY CONFIG - MUST COMMENT OUT BEFORE DEPLOYING TO CLOUD!] ⚠️ ⚠️ ⚠️
 #
 # Prerequisites for local execution:
